@@ -68,3 +68,14 @@ If you encounter an error while trying to run the server code, run:
     $ go get -u google.golang.org/grpc
 
 and recompile the protoc.
+
+## Python version
+This part wasn't intended for the lab, but I decided to include a python version that used the gRPC movie API. The python version is just a quick recreation of the Go code. It doesn't include an error checking mainly because I don't know how it's implemented in Python because it's obvious in Go.
+
+To compile the proto code to generate the python code, execute the following line:
+
+    $ python3 -m grpc_tools.protoc -Imovieapi --python_out=. --pyi_out=. --grpc_python_out=. movieapi/movieapi.proto
+
+(The python code was made with python3 in mind.)
+
+The client and server python code are located in the movieclient and movieserver directories respectively. This repo includes the generated python code from the line above.

@@ -3,3 +3,4 @@
 .history
 *.mod
 *.sum
+__pycache__
