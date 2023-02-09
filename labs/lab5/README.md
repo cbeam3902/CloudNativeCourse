@@ -74,6 +74,7 @@ This part wasn't intended for the lab, but I decided to include a python version
 
 To compile the proto code to generate the python code, execute the following line:
 
+    $ pip3 install grpcio-tools
     $ python3 -m grpc_tools.protoc -Imovieapi --python_out=. --pyi_out=. --grpc_python_out=. movieapi/movieapi.proto
 
 (The python code was made with python3 in mind.)
