@@ -3,6 +3,8 @@ package main
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"log"
 	"net"
 	"strconv"
@@ -31,7 +33,7 @@ func (s *server) GetMovieInfo(ctx context.Context, in *movieapi.MovieRequest) (*
 	log.Printf("Received: %v", title)
 	reply := &movieapi.MovieReply{}
 	if val, ok := moviedb[title]; !ok { // Title not present in database
-		return reply, nil
+		return reply, errors.New(fmt.Sprintf("%s does not exist!\n", title))
 	} else {
 		if year, err := strconv.Atoi(val[0]); err != nil {
 			reply.Year = -1
@@ -49,20 +51,20 @@ func (s *server) GetMovieInfo(ctx context.Context, in *movieapi.MovieRequest) (*
 }
 
 func (s *server) SetMovieInfo(ctx context.Context, in *movieapi.MovieData) (*movieapi.Status, error) {
-	title := in.GetTitle()
+	title := in.GetTitle() // Collect all of the variables
 	year := in.GetYear()
 	director := in.GetDirector()
 	cast := in.GetCast()
 
-	log.Printf("Received: %v", title)
-	status := &movieapi.Status{}
-	status.Code = 0
-	year_str := strconv.Itoa(int(year))
+	log.Printf("Received: %v", title)   // Print to log
+	status := &movieapi.Status{}        // Declare Status
+	status.Code = 0                     // Set to a default number
+	year_str := strconv.Itoa(int(year)) // Convert string to int
 
-	log.Println("Cast: ", cast)
-	moviedb[title] = []string{year_str, director, strings.Join(cast, ",")}
+	// log.Println("Cast: ", cast)
+	moviedb[title] = []string{year_str, director, strings.Join(cast, ",")} // Store in map
 
-	log.Println("Moviedb: ", moviedb)
+	log.Println("Moviedb: ", moviedb) // Print moviedb
 
 	return status, nil
 
