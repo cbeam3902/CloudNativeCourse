@@ -1,0 +1,3 @@
+[submodule "labs/lab12/github-action"]
+	path = labs/lab12/github-action
+	url = https://github.com/cbeam3902/github-action
